@@ -1,30 +1,29 @@
 import { createClient } from "contentful";
-import RecipeCard from "../components/RecipeCard";
+import BodyCard from "../components/BodyCard";
 
 export async function getStaticProps() {
-  const client = createClient({
+  const cline = createClient({
     space: process.env.CONTENTFUL_SPACE_ID,
     accessToken: process.env.CONTENTFUL_ACCESS_KEY,
   });
-  const res = await client.getEntries({ content_type: "recipe" });
+  const res = await client.getEntries({ content_type: "body" });
 
   return {
     props: {
-      recipes: res.items,
+      bodys: res.items,
     },
   };
 }
 
-export default function Recipes({ recipes }) {
-  console.log(recipes);
+export default function Bodys({ bodys }) {
+  console.log(bodys);
   return (
-    <div className="recipe-list">
-      {recipes.map((recipe) => (
-        <RecipeCard key={recipe.sys.id} recipe={recipe} />
+    <div className="body-list">
+      {bodys.map((body) => (
+        <BodyCard key={body.sys.id} boyd={body} />
       ))}
-
       <style jsx>{`
-        .recipe-list {
+        .body-list {
           display: grid;
           grid-template-columns: 1fr 1fr;
           grid-gap: 20px 60px;
